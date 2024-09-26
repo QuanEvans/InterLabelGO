@@ -311,7 +311,9 @@ def extract_embeddings(train_seq_fasta:str):
         cache_dir=settings['embedding_dir'],
         model_path=settings['esm3b_path'],
     )
-    plm.extract()
+    plm.extract(
+        include=['mean'],
+    )
     # remove tmp dir
     if os.path.exists(settings['tmp_dir']):
         shutil.rmtree(settings['tmp_dir'], ignore_errors=True)

@@ -5,8 +5,7 @@ from utils.obo_tools import ObOTools
 from Bio import SeqIO
 
 file_dir = os.path.dirname(os.path.realpath(__file__))
-SETTINGS_FILE = os.path.join(file_dir, 'settings.json')
-settings = json.load(open(SETTINGS_FILE, 'r'))
+from settings import settings_dict as settings
 
 
 def main():
@@ -38,7 +37,7 @@ def main():
     os.system(f"wget ftp://ftp.ebi.ac.uk/pub/databases/GO/goa/UNIPROT/goa_uniprot_all.gaf.gz -O {tmp_dir}/goa.gaf.gz")
     # only grep exp data
     print('Extracting the exp data')
-    os.system(f'zcat {tmp_dir}/goa.gaf.gz | grep "^UniProtKB" | grep -P "(\tEXP\t)|(\tIDA\t)|(\tIPI\t)|(\tIMP\t)|(\tIGI\t)|(\tIEP\t)|(\tTAS\t)|(\tIC\t)|(\tHTP\t)|(\tHDA\t)|(\tHMP\t)|(\tHGI\t)|(\tHEP\t)" > {tmp_dir}train.gaf')
+    os.system(f'zcat {tmp_dir}/goa.gaf.gz | grep "^UniProtKB" | grep -P "(\tEXP\t)|(\tIDA\t)|(\tIPI\t)|(\tIMP\t)|(\tIGI\t)|(\tIEP\t)|(\tTAS\t)|(\tIC\t)|(\tHTP\t)|(\tHDA\t)|(\tHMP\t)|(\tHGI\t)|(\tHEP\t)" > {tmp_dir}/train.gaf')
 
     # download sequence
     print('Downloading the sequence')

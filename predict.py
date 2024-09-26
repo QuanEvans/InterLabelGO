@@ -34,22 +34,11 @@ def record_time(func):
     return wrapper
 
 InterLabel_weight_dict = {'BPO': 0.94, 'CCO': 0.55, 'MFO': 0.76} 
-a_weight_dict = {'BPO': 0.5, 'CCO': 0.4, 'MFO': 0.25}
-k_weight_dict = {'BPO': 2, 'CCO': 5, 'MFO': 4}
 
 # ZLPR_PTF1_GOF1
 a_weight_dict = {'BPO': 0.45, 'CCO': 0.45, 'MFO': 0.25}
 k_weight_dict = {'BPO': 1.5, 'CCO': 4, 'MFO': 5}
-# old zlpr_ptf1_gof1
-# a_weight_dict = {'BPO': 0.55, 'CCO': 0.45, 'MFO': 0.25}
-# k_weight_dict = {'BPO': 5, 'CCO': 4, 'MFO': 5}
 
-# ZLPR_GOF1
-a_weight_dict = {'BPO': 0.5, 'CCO': 0.5, 'MFO': 0.2}
-k_weight_dict = {'BPO': 3.5, 'CCO': 5, 'MFO': 5}
-# old zlpr_gof1
-# a_weight_dict = {'BPO': 0.75, 'CCO': 0.55, 'MFO': 0.2}
-# k_weight_dict = {'BPO': 4, 'CCO': 5, 'MFO': 5}
 
 
 class MainPipline:
@@ -119,7 +108,7 @@ class MainPipline:
         ).main()
     
     @record_time
-    def AlgignmentKNN_pred(self):
+    def AlignmentKNN(self):
         AlignmentKNN(
             working_dir=self.AlignmentKNN_workdir,
             fasta_file=self.fasta_file,
@@ -191,29 +180,6 @@ class MainPipline:
             merged_df['go_term_name'] = merged_df['term'].apply(lambda x: oboTools.goID2name(x))
             merged_df.to_csv(self.combine_tsv, sep='\t', index=False, mode='a', header=False)
 
-    # def parent_propagation(self, df: pd.DataFrame):
-    #     '''
-    #     propagate the prediction to the parent terms
-    #     df.columns = ['EntryID', 'term', 'score']
-    #     '''
-    #     # Convert to dict, where key is the EntryID, value dict of term and score
-    #     #df_dict = df.groupby('EntryID').apply(lambda x: x.set_index('term')['score'].to_dict()).to_dict()
-    #     df_dict = df.groupby('EntryID', group_keys=False)[df.columns].apply(lambda x: x.set_index('term')['score'].to_dict()).to_dict()
-        
-    #     # Propagate the prediction to the parent terms
-    #     result_dict = {}
-    #     for EntryID, term_score in df_dict.items():
-    #         result_dict[EntryID] = oboTools.backprop_cscore(term_score, min_cscore=0.001)
-        
-    #     # Convert back to dataframe
-    #     rows = []
-    #     for EntryID, terms_scores in result_dict.items():
-    #         for term, score in terms_scores.items():
-    #             rows.append({'EntryID': EntryID, 'term': term, 'score': score})
-        
-    #     result_df = pd.DataFrame(rows)
-    #     return result_df
-
     def parent_propagation(self, df: pd.DataFrame):
         '''
         Propagate the prediction to the parent terms
@@ -253,10 +219,10 @@ class MainPipline:
  
     def main(self):
         if not self.no_dnn:
-            #self.InterLabelGO_pred()
+            self.InterLabelGO_pred()
             pass
         if not self.no_align:
-            #self.AlgignmentKNN_pred()
+            self.AlignmentKNN()
             pass
         if not self.no_dnn and not self.no_align:
             AlignmentKNN_tsv=os.path.join(self.AlignmentKNN_workdir, 'AlignmentKNN.tsv')

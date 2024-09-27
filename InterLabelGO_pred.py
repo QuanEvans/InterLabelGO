@@ -23,7 +23,7 @@ oboTools = obo_tools.ObOTools(
     obo_pkl=settings['obo_pkl_file']
 )
 
-class InterLabelGO_pipline:
+class InterLabelGO_pipeline:
     def __init__(self,
         working_dir:str,
         fasta_file:str,
@@ -237,7 +237,7 @@ if __name__ == '__main__':
     model_dir = os.path.abspath(args.model_dir)
     esm_path = os.path.abspath(args.esm_path)
     device = 'cuda' if args.use_gpu else 'cpu'
-    InterLabelGO_pipline(
+    InterLabelGO_pipeline(
         working_dir=working_dir,
         fasta_file=fasta_file,
         device=device,

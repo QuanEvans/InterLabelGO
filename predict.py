@@ -7,7 +7,7 @@ import numpy as np
 from tqdm import tqdm
 import pickle, shutil, json
 
-from InterLabelGO_pred import InterLabelGO_pipline
+from InterLabelGO_pred import InterLabelGO_pipeline
 from alignment_knn import AlignmentKNN
 from utils import obo_tools
 from settings import settings_dict as settings
@@ -41,7 +41,7 @@ k_weight_dict = {'BPO': 1.5, 'CCO': 4, 'MFO': 5}
 
 
 
-class MainPipline:
+class Main_pipeline:
 
     def __init__(self,
         working_dir:str,
@@ -95,7 +95,7 @@ class MainPipline:
 
     @record_time
     def InterLabelGO_pred(self):
-        InterLabelGO_pipline(
+        InterLabelGO_pipeline(
             working_dir=self.InterLabelGO_workdir,
             fasta_file=self.fasta_file,
             pred_batch_size=self.pred_batch_size,
@@ -258,7 +258,7 @@ if __name__ == "__main__":
     else:
         device = 'cpu'
 
-    MainPipline(
+    Main_pipeline(
         working_dir=working_dir,
         fasta_file=fasta_file,
         num_threads=args.num_threads,

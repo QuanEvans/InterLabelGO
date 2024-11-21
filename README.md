@@ -93,3 +93,10 @@ Training configuration is specified in `settings.py`.
 ## Notes
 
 1. The data processing code will overwrite the original data, and the training code will overwrite the original model.
+
+## Citation
+
+Quancheng Liu, Chengxin Zhang, Lydia Freddolino (2024)
+[InterLabelGO+: unraveling label correlations in protein function prediction](https://doi.org/10.1093/bioinformatics/btae655)
+Bioinformatics, 40(11): btae655.
+

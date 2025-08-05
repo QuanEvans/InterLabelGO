@@ -14,13 +14,13 @@ from utils import obo_tools, run_diamond
 from settings import settings_dict as settings
 
 docstring = """
-Blast/Diamond alginment based KNN Protein Gene Ontology Annotation Pipeline (AlignmentKNN)
+Blast/Diamond alignment based KNN Protein Gene Ontology Annotation Pipeline (AlignmentKNN)
 
 example usage:
     python alignment_knn.py -w /home/username/workdir -f /home/username/seq.fasta -d /home/username/database -g /home/username/goa -t 8
 
 keywords arguments:
-    -w, --workdir: working directory for the pipline
+    -w, --workdir: working directory for the pipeline
     -f, --fasta: path of fasta file
     -d, --database: dir path of database, should include three sub directories: BPO, MFO, CCO, each sub directory should contain a fasta file named AlignmentKNN.fasta
     -g, --goa: dir path of goa labels file, should include three files: BPO_Term, MFO_Term, CCO_Term, each file should have multiple lines, each line contains a protein name and its go terms separated by tab, the go terms separated by comma
